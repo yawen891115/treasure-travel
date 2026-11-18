@@ -1,0 +1,2 @@
+# Optional test-only Redis Lua emulator. Do not install in the web container.
+fakeredis[lua]>=2,<3

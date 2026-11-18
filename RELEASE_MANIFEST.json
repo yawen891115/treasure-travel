@@ -1,0 +1,473 @@
+{
+  "file_count": 117,
+  "files": [
+    {
+      "path": ".dockerignore",
+      "sha256": "3adcfad30f81682100dda18e32207b55f02174848991ea37e3e944c32118c40a"
+    },
+    {
+      "path": ".env.example",
+      "sha256": "6fba34ac085920c1b23c741882e075626e2c205ba734a793cdc3f95504b13bf2"
+    },
+    {
+      "path": ".github/workflows/tests.yml",
+      "sha256": "f1d11c793ebc25055f8c8a42776ceb2322679ca1f54bbd4f287623909c4b48e1"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "bcdd7544ec34b3907ae34124b5239a55247e09b0b2492f557cb306da8a8c4470"
+    },
+    {
+      "path": "AUDIT_REPORT.md",
+      "sha256": "47d82d3b3c1737b3c199f5f8a30b3d959f111e66d8cd88f40c4c3d85eddafac7"
+    },
+    {
+      "path": "Caddyfile",
+      "sha256": "2ac29045de0a7bebfc9f9f0603aaae0565e5ab6c0681ba4c10c550282bd33cf5"
+    },
+    {
+      "path": "DEPLOYMENT.md",
+      "sha256": "1b5de604e4a75d7495237c896b2a14f499c19da3938055f90bf9da3b23cf22f8"
+    },
+    {
+      "path": "Dockerfile",
+      "sha256": "f0cd65495bdc500b4aa9ff2f6c52f5d379340611881696bf1478c2ed2646542a"
+    },
+    {
+      "path": "LIVE_UPGRADE.md",
+      "sha256": "075d376310044b1f348aaef812563288c6da5c462a1cb9f0e7ee8306e9cefce6"
+    },
+    {
+      "path": "NOTICE.md",
+      "sha256": "216a78bb5e1e6ea2b127480a07203bfc63ca34f382de3fac0aae92f716afbbc9"
+    },
+    {
+      "path": "README.md",
+      "sha256": "f64784e0d6cb80c674091fdd7317de086cc43994c61d17e873b2524c7cb29f16"
+    },
+    {
+      "path": "agent/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "agent/agent.py",
+      "sha256": "3b97216d83bb3006eac07af31e122405b6d8f40855ebfef3813f9c334aa7cb3e"
+    },
+    {
+      "path": "agent/llm.py",
+      "sha256": "d6ebb9e24fe42969b96f89055469995a85bcc48922e4da5988f3a703d8e6d920"
+    },
+    {
+      "path": "agent/maps.py",
+      "sha256": "926d80a1d1ece2bac4963cf73811d1bb184a5d3a5d57fed831e6e27fec8cf2d1"
+    },
+    {
+      "path": "agent/offline.py",
+      "sha256": "7b5804227c2c74f8622baaa6f96d16ee9f2abf8bc8015d1ef25798856348ca96"
+    },
+    {
+      "path": "agent/tools.py",
+      "sha256": "604b74f211389cc6f09ef89790e788961080fc88e0be6551735d0b1d08867616"
+    },
+    {
+      "path": "agent/validator.py",
+      "sha256": "c714c80e93706b0aa6727e4edccbe36f6b8938c8cdf26fcbf3c76477e350e687"
+    },
+    {
+      "path": "artifacts/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "data/cache/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "data/processed/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "data/raw/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "demo/README.md",
+      "sha256": "8ed891af36c38d6e2f5fb4ed8d5ca6ecc94e07b2a55bae14f64336d20d0407fc"
+    },
+    {
+      "path": "demo/index.html",
+      "sha256": "9183a88dd6480f97ed48cc437d42716b43ffcad3bd937783de0eccba450bc0db"
+    },
+    {
+      "path": "demo/test.cjs",
+      "sha256": "3429ddf13d80e4e36961696138c0d6bf59bb0ee73b8d03c63160c7af5fef9b14"
+    },
+    {
+      "path": "docker-compose.https.yml",
+      "sha256": "af67dabd6c55094acfc439f0d35a8d904d9bd9273a4e49c203255b98c181ff42"
+    },
+    {
+      "path": "docker-compose.yml",
+      "sha256": "4c11c133f877c13f5909ed4beaba36f5ac19314aee05fdf111672b6ec72829d9"
+    },
+    {
+      "path": "mobile/.env.example",
+      "sha256": "86724f9bcfec771f2794b53eb0cf9fe8caea1e3fb6e99af35345c81cb505b641"
+    },
+    {
+      "path": "mobile/.gitignore",
+      "sha256": "4d9a563f3c5bc6503da2cccced95494ebf991f8c7f1a791e144b37322cb20458"
+    },
+    {
+      "path": "mobile/App.tsx",
+      "sha256": "56c1fd5e171de29d229db0399b4042c58fb75baf16e473fdbd1ef25f2d1bb654"
+    },
+    {
+      "path": "mobile/LICENSE",
+      "sha256": "fb3ca4a837f5779e83cef89b78253a8949cfb9429c340309f62d0465ec6610b4"
+    },
+    {
+      "path": "mobile/README.md",
+      "sha256": "637068fea5d23cf29d5ae17ad97e26ddc8a7c7d06075f47f2fcb01733dd40dab"
+    },
+    {
+      "path": "mobile/app.config.ts",
+      "sha256": "86af4ba0455b08191aafa498a5f4725031a6cd2b90bdd2cb2981b710de7e7478"
+    },
+    {
+      "path": "mobile/app.json",
+      "sha256": "f5d5130a62e86cf74abbf1cffc19b34cc79f004d8c2c1f510693007099d09af7"
+    },
+    {
+      "path": "mobile/assets/android-icon-background.png",
+      "sha256": "fb139c2dee362ebf2070e23b96da6fc0d43f8492de38b8af1fd7223e19b5861d"
+    },
+    {
+      "path": "mobile/assets/android-icon-foreground.png",
+      "sha256": "9e3d0315a33c6799de601dd34cd8bf8cc3a8d16f3bf75592baec2ceb7240b391"
+    },
+    {
+      "path": "mobile/assets/android-icon-monochrome.png",
+      "sha256": "6371fc2c12e33ad2215a86c281db3d682a81bebe7c957a842c13b8bf00cceb83"
+    },
+    {
+      "path": "mobile/assets/favicon.png",
+      "sha256": "a4e030697a7571b3e95d31860e4da55d2f98e5e861e2b55e414f45a8556828ba"
+    },
+    {
+      "path": "mobile/assets/icon.png",
+      "sha256": "119462bb78eb240a65c869fc067ee599639b3cb5a41953f25c07b17d2a8c7e0f"
+    },
+    {
+      "path": "mobile/assets/splash-icon.png",
+      "sha256": "5f4c0a732b6325bf4071d9124d2ae67e037cb24fcc9c482ef82bea742109a3b8"
+    },
+    {
+      "path": "mobile/eas.json",
+      "sha256": "5a2763004184e9f925ea8537d4b92383dfd2be407c5e29b12079705e8b291df3"
+    },
+    {
+      "path": "mobile/index.ts",
+      "sha256": "5c157f4d44972d9c84415e1e4bda595b3abcd8cf733f8a9cd20935bec3eccc42"
+    },
+    {
+      "path": "mobile/package-lock.json",
+      "sha256": "42005261372a9d02435c899a56fa8cb5e132bba2824ef0480a6e79382a685b5c"
+    },
+    {
+      "path": "mobile/package.json",
+      "sha256": "ec6fe559b0bb57d0dd6eada29a50e400a96f6b960721bfc32261457300767883"
+    },
+    {
+      "path": "mobile/src/api.ts",
+      "sha256": "d3a93e40a5aa3d0ed0ec364d902ed2491cba098d5698a2ef9eb4f88336b7007e"
+    },
+    {
+      "path": "mobile/tests/api.test.mjs",
+      "sha256": "ee40a6c8eb8f4bdc2ed152f88dcb4510ab385d4b30a2fb0b5f54a30f9db09c93"
+    },
+    {
+      "path": "mobile/tsconfig.json",
+      "sha256": "712583ff9cdb4b4e4f9b000a4a56d68db8dc1921cbfbc36d490a3a9f2be3dd72"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "feb33f7a63751d39831ed847e215fcffdf169295f94a87c755876698f1189614"
+    },
+    {
+      "path": "requirements-audit-lock.txt",
+      "sha256": "d79e91b42e2283d5b05a32c70e37b511fa4f59088dabe6da6ced55b2d1b68f27"
+    },
+    {
+      "path": "requirements-security-test.txt",
+      "sha256": "1dd810cb11a3c514203e6a15b00276b1e4fd2d9a796a0026074215c92ca868b5"
+    },
+    {
+      "path": "requirements-web.txt",
+      "sha256": "7ea1b99a944a6bf6f37f40ce1bda78f7a7396888785f5c5a5f741cdf8c5d4f51"
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "44c20a9d0ac5aa150c083a26a562deda5daffdc22b6b2751126e59dfc8eec462"
+    },
+    {
+      "path": "results/offline_rules_results.json",
+      "sha256": "331667d34bc7449cc1e72783d83cd279e3e68c397504ae86f74edfc74b9380ca"
+    },
+    {
+      "path": "results/offline_rules_results.md",
+      "sha256": "3362fef46bba04052d47813598b4f09b63987e04170aca83e1758787dac297c3"
+    },
+    {
+      "path": "results/ranking_results.json",
+      "sha256": "526b4e9189b2402a6ffe9b54a707159c13c5691f18e9a8e3b5bc345cbf530c67"
+    },
+    {
+      "path": "results/ranking_results.md",
+      "sha256": "750431a10f6e95334a38c1ec0f6184a92747a078d8b7ac07e2be770c05850803"
+    },
+    {
+      "path": "results/rerank_results.md",
+      "sha256": "0a6876a0c65876233a72de58f08f26623d7feaca660a9ddc0c0eb00040da25d0"
+    },
+    {
+      "path": "scripts/00_make_fake_data.py",
+      "sha256": "79487f8a97dd5e4ec7357bf06aa8862f2b200e264a72d7eb8c5423b8216afbfb"
+    },
+    {
+      "path": "scripts/01_prepare_boston.py",
+      "sha256": "c47afd12f05836f553dc5c880543f2df78a7592fd36e60422260a5a9e43631bf"
+    },
+    {
+      "path": "scripts/01_prepare_data.py",
+      "sha256": "1647935caf5a73c5148494fa692f5711cdc2c769a0755222792acfa6d0484699"
+    },
+    {
+      "path": "scripts/02_rank_experiments.py",
+      "sha256": "cecaf3937e3651d0987bae4ea95cb314005679423de105e06ee8852b89c81b7f"
+    },
+    {
+      "path": "scripts/03_rerank_eval.py",
+      "sha256": "a2754ff12dac61fce528b881bed7f2aab3d26e3cda2df04cef789c958a68f0af"
+    },
+    {
+      "path": "scripts/04_make_test_requests.py",
+      "sha256": "bdb21599fcd07ee32130748e327f72b07cc8a3402841d2fba14025e371b4df83"
+    },
+    {
+      "path": "scripts/05_eval_agent.py",
+      "sha256": "157946e72f8b2192cbadd8e16e8c9ee160c87e276810a1e1ad5c85000bf41448"
+    },
+    {
+      "path": "scripts/06_eval_offline.py",
+      "sha256": "b36e7efdc5259f9754b913d1ea7f32e1dd3d4a6573a0aa1e81efd0542acc9c80"
+    },
+    {
+      "path": "scripts/check_llm.py",
+      "sha256": "1fd7d9948984a577ea62179dd5a225c530910d513de3218ddf9685d9ae72cbc1"
+    },
+    {
+      "path": "scripts/download_public_data.py",
+      "sha256": "8516483546d2cd31e912555f2f98b167dfd291c9e3adc45f14c955682476fed2"
+    },
+    {
+      "path": "scripts/smoke_http.py",
+      "sha256": "3a9d4f02e6f4b0bf1b64aa07a5aef1f8a2e7e93f6ad35b6cbd0961d295f0ce84"
+    },
+    {
+      "path": "scripts/survey_to_requests.py",
+      "sha256": "7b23ff7de76b6ff36c6feafb78ba2da9c191ac3d9f4eef0a32f3107bf9769bff"
+    },
+    {
+      "path": "scripts/try_agent.py",
+      "sha256": "5fcee16651d6b41714eca1a68ce8e461d808162f57b66338006701517fd75bf1"
+    },
+    {
+      "path": "src/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "src/als_spark.py",
+      "sha256": "60baf997a9abdaff99b96acd2bc2a47ee95729064a499988b70acfe5bbbdb2b1"
+    },
+    {
+      "path": "src/config.py",
+      "sha256": "4d3993ce3dbb47072e88ad778190a2f9b70d2c07a478d833266de1f0a7903fd8"
+    },
+    {
+      "path": "src/constraints.py",
+      "sha256": "1f7ffb8525fe00ede376b4bbe9ca8fb0b5a31d237047a7800209a82f7f5b7254"
+    },
+    {
+      "path": "src/data_prep.py",
+      "sha256": "bdc76ee4cad2532ab5b17cd485dbdcaeb763831f04d4ac3ae11934e61d195fea"
+    },
+    {
+      "path": "src/features.py",
+      "sha256": "ee03450482697886c8ba6fced123eb193d2da3c81de73c64bd2b8595ee727db9"
+    },
+    {
+      "path": "src/metrics.py",
+      "sha256": "6ad535dceffa478958d6ea224f1ccddd8b0673363b33bf13e4f63215e67a9d15"
+    },
+    {
+      "path": "src/ranker.py",
+      "sha256": "7ce5b4877c4bd00d7e6b8e78a9b69ca2ffee5072f17b6bc22e0dca81b716fadc"
+    },
+    {
+      "path": "src/rerank.py",
+      "sha256": "7daa82d2a9070e9d16b1f96c209d262ca37dfae5d03c02ef0303585d0e09ed00"
+    },
+    {
+      "path": "src/residualize.py",
+      "sha256": "5490a86515e5c84f23b23598d7aad9913fe76729951d718fccaf153d202a087e"
+    },
+    {
+      "path": "src/serving.py",
+      "sha256": "3a1630e490faf70994c8a89695e6dd99d9d55dd48493038286e3156f77046282"
+    },
+    {
+      "path": "survey/README.txt",
+      "sha256": "626eba3a3956a0d951e0812a8b6951a7466c19378c50862752d63478e0f72625"
+    },
+    {
+      "path": "survey/google_form_questions.md",
+      "sha256": "3d5b5c80ad795a63ec08be5bf47817b2f080ad68e144a324193234389c205b5d"
+    },
+    {
+      "path": "survey/sample_responses.csv",
+      "sha256": "7121f72f7b3fef994c4324f218eec53f421c4d39f4b8932c117bda4bc5f54513"
+    },
+    {
+      "path": "tests/conftest.py",
+      "sha256": "8659c4f6af34a32f61ecc29774fd873cf628e7e0828ce9ff04773418357a6cc6"
+    },
+    {
+      "path": "tests/test_agent.py",
+      "sha256": "b57cb2684e0b884ea01f94b405122844ab4aba0bca1b155035e3ca119ee8eabc"
+    },
+    {
+      "path": "tests/test_audit_regressions.py",
+      "sha256": "b7e4043bc5f0a86c5398b91d7bb486ad239281591ccb87b9750c14e08b08dbd3"
+    },
+    {
+      "path": "tests/test_claude_wire.py",
+      "sha256": "344123e311327b1a0d99155b7d58ae994e194cef358a89a9637c59e02887855d"
+    },
+    {
+      "path": "tests/test_constraints.py",
+      "sha256": "7caddfc3985c4b1fc708cbec709909d3ed52e541c4d4e7ceef301da2a9ad73a6"
+    },
+    {
+      "path": "tests/test_eval_offline.py",
+      "sha256": "69b78fe7b348cb1391969844917a4dbeaa41d6d7acfd6314c67742aa941716e5"
+    },
+    {
+      "path": "tests/test_live_maps.py",
+      "sha256": "6158dc773ed7d43637a0ac1502792e0f12668437bc1f45e830d37650db8c10b7"
+    },
+    {
+      "path": "tests/test_metrics.py",
+      "sha256": "42d283aef25a8a6205d340e7eecb94e0b6cf0177f16ca4d11995340a9f8aa52e"
+    },
+    {
+      "path": "tests/test_offline_planner.py",
+      "sha256": "f94d8f6ece027d730019a6689fee6fd52cadce2e61d97a49a8c2e86962ff7876"
+    },
+    {
+      "path": "tests/test_residualize.py",
+      "sha256": "af7f61bb54e30613a635ad7998778666ed1e69cc25968a9232e24651c3345447"
+    },
+    {
+      "path": "tests/test_survey_provenance.py",
+      "sha256": "81683fe29731146ce215490c05f626c0f9444555378968bdedd17c81655abae2"
+    },
+    {
+      "path": "tests/test_validator.py",
+      "sha256": "c97a3af57e45df2ec151b30b4f7738f4de09ac44b8df1a1bf6f85d859159f617"
+    },
+    {
+      "path": "web/manage.py",
+      "sha256": "653fa3e639c617464fad36d9903920b3b11fd07ef78f3ff98c634ed669471b9b"
+    },
+    {
+      "path": "web/planner/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "web/planner/admin.py",
+      "sha256": "c4e6a918302867fe3c610926c5252740d1f6abea61980469f56473967fecf99f"
+    },
+    {
+      "path": "web/planner/apps.py",
+      "sha256": "0a157547f4200f6bb9dc2628f62875cf7f065a300f1f21bebab4f771b27274ce"
+    },
+    {
+      "path": "web/planner/limits.py",
+      "sha256": "f212b9d12579e2389029ccd1937bf478f78c182afff22389272d4a8716bd8126"
+    },
+    {
+      "path": "web/planner/management/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "web/planner/management/commands/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "web/planner/management/commands/purge_planner_logs.py",
+      "sha256": "24d19c488693b540bb58cd012b43ee0b3a5a9f080bac6335ae5edf8e891d8f3d"
+    },
+    {
+      "path": "web/planner/migrations/0001_initial.py",
+      "sha256": "76b91e9d41425aafcf6655c3e22b4be1eb48d42814c025e5cbe7aeb128f677c7"
+    },
+    {
+      "path": "web/planner/migrations/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "web/planner/models.py",
+      "sha256": "dd4f41c16b921bcf0269c275e0e4daca5244f03922eb3ee07dd6bffd5a14af27"
+    },
+    {
+      "path": "web/planner/templates/planner/index.html",
+      "sha256": "b5a0dbb7ccf9c7adf4a5cd78b70363f694818e78947703258117e20a68bf40a3"
+    },
+    {
+      "path": "web/planner/templates/registration/login.html",
+      "sha256": "3181cad17abf1add70a8b006d4a5e2d09f96c913d0bb37562a68582681085591"
+    },
+    {
+      "path": "web/planner/test_security.py",
+      "sha256": "3dbebe5541c2f3a24aebd9da7441f87d4efab0ae2688c0a08d8f51a8fd5fba68"
+    },
+    {
+      "path": "web/planner/tests.py",
+      "sha256": "6ee30e91955824475a634346cff198c7006c8ae53301efc552f273d1c5251301"
+    },
+    {
+      "path": "web/planner/urls.py",
+      "sha256": "27081f756b38b8d563accb654eb37209fa37b8c8e1ec6d0a766b436f8c743b12"
+    },
+    {
+      "path": "web/planner/views.py",
+      "sha256": "790a25441d2b109e5e99c604ed853586aff69ef96abed0a9f21e2ee9953f805a"
+    },
+    {
+      "path": "web/travel_site/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "web/travel_site/settings.py",
+      "sha256": "aca5d79af7ad9636112077ac9f94b2fdc09c63cd4b1d1cfea221c14af86119a3"
+    },
+    {
+      "path": "web/travel_site/urls.py",
+      "sha256": "143f42be67de4af94d557755599ce56774051e105d8400090523c318b7062dee"
+    },
+    {
+      "path": "web/travel_site/wsgi.py",
+      "sha256": "d88a564a812418aae225680465eef15f56fab5c2ffe2c9936cc35ea991622d96"
+    }
+  ]
+}
