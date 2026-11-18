@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Treasure Travel - day-trip planner</title>
+  <style>
+    :root { --ink:#1f2933; --muted:#616e7c; --line:#e4e7eb; --brand:#0b7a75; --bg:#f7f9fa; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+           color:var(--ink); background:var(--bg); }
+    header { padding:16px 20px; background:#fff; border-bottom:1px solid var(--line); }
+    header h1 { margin:0; font-size:20px; color:var(--brand); }
+    header p { margin:4px 0 0; color:var(--muted); font-size:14px; }
+    .demo { background:#fff7e6; color:#8a5a00; padding:8px 20px; font-size:13px; }
+    main { max-width:760px; margin:0 auto; padding:16px; }
+    #chat { display:flex; flex-direction:column; gap:10px; min-height:50vh; }
+    .msg { padding:10px 14px; border-radius:12px; max-width:85%; line-height:1.45; white-space:pre-wrap; }
+    .user { align-self:flex-end; background:var(--brand); color:#fff; }
+    .bot { align-self:flex-start; background:#fff; border:1px solid var(--line); }
+    .stop { background:#fff; border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin-top:8px; }
+    .stop .time { font-weight:600; color:var(--brand); }
+    .stop .meta { color:var(--muted); font-size:13px; }
+    .stop button { border:1px solid var(--line); background:#fff; border-radius:8px; padding:2px 8px;
+                   cursor:pointer; margin-right:6px; }
+    .warn { background:#fff7e6; border:1px solid #f7d070; border-radius:8px; padding:8px 10px;
+            margin-top:8px; font-size:13px; }
+    form { display:flex; gap:8px; margin-top:16px; position:sticky; bottom:0; background:var(--bg); padding:8px 0; }
+    textarea { flex:1; resize:none; height:56px; padding:10px; border:1px solid var(--line); border-radius:10px; font:inherit; }
+    .btn { background:var(--brand); color:#fff; border:none; border-radius:10px; padding:0 18px; font:inherit; cursor:pointer; }
+    .btn.secondary { background:#fff; color:var(--brand); border:1px solid var(--brand); }
+    .btn:disabled { opacity:.5; }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Treasure Travel</h1>
+  <p>Tell me who is going, when, your budget and what you like. I will plan a day that fits.</p>
+{% if user.is_authenticated %}
+  <p>Signed in. <button type="button" id="logout">Sign out</button></p>
+{% elif paid_mode %}
+  <p>Live planning requires an authorized account. <a href="/accounts/login/">Sign in</a></p>
+{% endif %}
+</header>
+{% if backend == "fake" %}
+<div class="demo">Demo mode: a scripted planner answers. Add ANTHROPIC_API_KEY to .env to use the real model.</div>
+{% elif backend == "offline" %}
+<div class="demo">Offline mode: deterministic constraint-aware planning, not an LLM. Uses dataset hours and estimated costs/travel times.</div>
+{% endif %}
+{% if maps_mode == "google" %}
+<div class="demo">Google Maps supplies dated opening hours and route-duration estimates, not a traffic forecast. Provide your trip date (YYYY-MM-DD). Costs remain heuristic estimates; catalog entries are historical. Live lookup requires verified place-ID mappings. Opening-hour checks are limited to supported upcoming dates. Live responses are not saved to chat history; include your full trip details each time.</div>
+<div class="demo"><a href="https://maps.google.com" rel="noopener noreferrer">Google Maps</a></div>
+{% endif %}
+<main>
+  <div id="chat">
+    <div class="msg bot">Hi! Try: "Saturday 10:00-18:00, 2 people, budget $120, walking, max 20 minutes, origin (42.3601, -71.0589), interests: art and coffee." Replace the example coordinates with your own starting point.</div>
+  </div>
+  <form id="form">
+    <textarea id="input" placeholder="Describe your trip..." required maxlength="8000"></textarea>
+    <button class="btn" id="send" type="submit">Send</button>
+    <button class="btn secondary" id="reset" type="button">New trip</button>
+  </form>
+</main>
+<script>
+const CSRF = "{{ csrf_token }}";
+const chat = document.getElementById("chat");
+const logout = document.getElementById("logout");
+if (logout) logout.onclick = async () => {
+  try { await post("/api/logout"); window.location.reload(); }
+  catch (err) { bubble("Could not sign out. Please try again.", "bot"); }
+};
+
+function bubble(text, who) {
+  const div = document.createElement("div");
+  div.className = "msg " + who;
+  div.textContent = text;                 // textContent, never innerHTML: no script injection
+  chat.appendChild(div);
+  div.scrollIntoView({behavior: "smooth"});
+  return div;
+}
+
+async function post(url, body) {
+  const r = await fetch(url, {method: "POST", headers: {"Content-Type": "application/json", "X-CSRFToken": CSRF},
+                              body: JSON.stringify(body || {})});
+  if (!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+
+function showPlan(box, data) {
+  for (const s of data.stops) {
+    const card = document.createElement("div");
+    card.className = "stop";
+    const time = document.createElement("div"); time.className = "time"; time.textContent = `${s.arrive} - ${s.leave}  ${s.name}`;
+    const meta = document.createElement("div"); meta.className = "meta"; meta.textContent = `${s.categories} · about $${s.est_cost} per person`;
+    const up = document.createElement("button"); up.textContent = "👍";
+    const down = document.createElement("button"); down.textContent = "👎";
+    for (const [btn, liked] of [[up, true], [down, false]]) {
+      btn.onclick = async () => {
+        if (up.disabled || down.disabled) return;
+        up.disabled = down.disabled = true;
+        try {
+          await post("/api/feedback", {place_id: s.place_id, place_name: s.name, liked});
+          btn.textContent += " saved";
+        } catch (err) {
+          up.disabled = down.disabled = false;
+          bubble("Feedback was not saved. Please try again.", "bot");
+        }
+      };
+    }
+    card.append(time, meta, up, down);
+    box.appendChild(card);
+  }
+  for (const w of data.warnings) {
+    const warn = document.createElement("div"); warn.className = "warn"; warn.textContent = "⚠ " + w; box.appendChild(warn);
+  }
+}
+
+document.getElementById("form").onsubmit = async (e) => {
+  e.preventDefault();
+  const input = document.getElementById("input"), send = document.getElementById("send");
+  const text = input.value.trim();
+  if (!text || send.disabled) return;
+  bubble(text, "user");
+  input.value = ""; send.disabled = true;
+  document.getElementById("reset").disabled = true;
+  const wait = bubble("Planning... (checking hours, travel times and budget)", "bot");
+  try {
+    const data = await post("/api/chat", {message: text});
+    wait.textContent = data.reply;
+    showPlan(wait, data);
+  } catch (err) {
+    wait.textContent = "Something went wrong: " + err.message;
+  }
+  send.disabled = false;
+  document.getElementById("reset").disabled = false;
+};
+
+document.getElementById("reset").onclick = async () => {
+  const reset = document.getElementById("reset"), send = document.getElementById("send");
+  if (reset.disabled || send.disabled) return;
+  reset.disabled = send.disabled = true;
+  try {
+    await post("/api/reset");
+    chat.replaceChildren();
+    bubble("New trip! Tell me about it.", "bot");
+  } catch (err) {
+    bubble("Could not reset the trip. Please try again.", "bot");
+  } finally {
+    reset.disabled = send.disabled = false;
+  }
+};
+</script>
+</body>
+</html>

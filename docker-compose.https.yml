@@ -1,0 +1,63 @@
+# PRIVATE SINGLE-HOST deployment template. Never run without reviewing DEPLOYMENT.md.
+services:
+  web:
+    build: .
+    env_file: .env
+    environment:
+      DB_DIR: /app/web_data
+      DJANGO_DEBUG: "0"
+      BEHIND_HTTPS_PROXY: "1"
+      REDIS_URL: redis://redis:6379/0
+      PLANNER_LIMITS_ENABLED: "1"
+    expose:
+      - "8000"
+    volumes:
+      - ./artifacts:/app/artifacts:ro
+      - ./data/processed:/app/data/processed:ro
+      - web_data:/app/web_data
+      # For live Google mode add a read-only verified place-ID mapping mount.
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--save", "", "--appendonly", "no", "--maxmemory", "128mb", "--maxmemory-policy", "noeviction"]
+    # No host port: reachable only by trusted containers in this Compose network.
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    read_only: true
+    tmpfs:
+      - /data
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+  caddy:
+    image: caddy:2
+    environment:
+      APP_DOMAIN: ${APP_DOMAIN:?Set APP_DOMAIN to the actual HTTPS hostname}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - web
+    restart: unless-stopped
+volumes:
+  web_data:
+  caddy_data:
+  caddy_config:

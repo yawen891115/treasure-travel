@@ -1,0 +1,53 @@
+{
+  "dataset": "Boston",
+  "input_and_code_sha256": "5c284dd2569bec0e301c64255c7e51dd14dbb27af750a7788765ab814f9a2a12",
+  "candidate_limit": 12,
+  "request_sources": {
+    "synthetic": 200
+  },
+  "method": "Deterministic comparison; no LLM and no live Maps API",
+  "judge": "dataset opening hours, distance-based travel, heuristic group costs",
+  "limitations": [
+    "Generated requests are not real-user outcomes.",
+    "Feasibility uses estimates and historical hours, not live truth.",
+    "Greedy planning is not globally optimal; partial plans are reported.",
+    "Rule planner enforces these same constraints by construction; this is an integration benchmark, not an independent quality study."
+  ],
+  "metrics": {
+    "naive_scripted": {
+      "requests": 200,
+      "nonempty_plan_rate": 1.0,
+      "full_requested_stop_completion_rate": 0.99,
+      "feasible_nonempty_plan_rate": 0.065,
+      "feasible_full_completion_rate": 0.065,
+      "violation_or_unknown_or_no_plan_rate": 0.935,
+      "violation_or_unknown_among_nonempty_plans": 0.935,
+      "unknown_hours_rate": 0.29,
+      "execution_error_rate": 0.0,
+      "average_stops": 3.99,
+      "violation_type_counts": {
+        "closed": 128,
+        "leg_too_long": 109,
+        "unknown_hours": 58,
+        "travel_time": 61,
+        "bad_time": 31,
+        "over_budget": 121
+      }
+    },
+    "constraint_aware_rules": {
+      "requests": 200,
+      "nonempty_plan_rate": 0.94,
+      "full_requested_stop_completion_rate": 0.33,
+      "feasible_nonempty_plan_rate": 0.94,
+      "feasible_full_completion_rate": 0.33,
+      "violation_or_unknown_or_no_plan_rate": 0.06,
+      "violation_or_unknown_among_nonempty_plans": 0.0,
+      "unknown_hours_rate": 0.0,
+      "execution_error_rate": 0.0,
+      "average_stops": 2.425,
+      "violation_type_counts": {
+        "empty": 12
+      }
+    }
+  }
+}

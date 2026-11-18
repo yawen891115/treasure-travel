@@ -1,0 +1,7 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Sign in · Treasure Travel</title></head><body>
+<h1>Sign in to Treasure Travel</h1>
+<p>Live planning is restricted to authorized staff accounts. Accounts are created by the operator.</p>
+{% if form.errors %}<p>Unable to sign in. Check your username and password.</p>{% endif %}
+<form method="post">{% csrf_token %}{{ form.as_p }}<input type="hidden" name="next" value="{{ next }}"><button type="submit">Sign in</button></form>
+<a href="/">Back to planner</a>
+</body></html>

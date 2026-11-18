@@ -1,0 +1,23 @@
+# Local demo only. Production HTTPS: see docker-compose.https.yml and DEPLOYMENT.md.
+services:
+  web:
+    build: .
+    env_file: .env
+    environment:
+      DB_DIR: /app/web_data
+      DJANGO_DEBUG: "1"
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - ./artifacts:/app/artifacts:ro
+      - ./data/processed:/app/data/processed:ro
+      - web_data:/app/web_data
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+volumes:
+  web_data:

@@ -1,0 +1,67 @@
+{
+  "dataset": "Boston",
+  "synthetic": false,
+  "evaluation": "per-user chronological held-out reviews, not real trips",
+  "rows": [
+    {
+      "variant": "A. Popularity only",
+      "weights": {
+        "pop": 1.0
+      },
+      "val_ndcg@5": 0.0216,
+      "test_ndcg@5": 0.0311,
+      "test_recall@5": 0.0367,
+      "catalog_coverage@5": 0.0059
+    },
+    {
+      "variant": "B. 3-factor baseline (popularity + rating + TF-IDF)",
+      "weights": {
+        "pop": 1.0,
+        "rating": 0.5,
+        "tfidf": 0.5
+      },
+      "val_ndcg@5": 0.0282,
+      "test_ndcg@5": 0.0334,
+      "test_recall@5": 0.0418,
+      "catalog_coverage@5": 0.1443
+    },
+    {
+      "variant": "C. B + raw ALS (additive factor)",
+      "weights": {
+        "pop": 0.5,
+        "rating": 0,
+        "tfidf": 0.5,
+        "als": 2.0
+      },
+      "val_ndcg@5": 0.0477,
+      "test_ndcg@5": 0.0441,
+      "test_recall@5": 0.0575,
+      "catalog_coverage@5": 0.2466
+    },
+    {
+      "variant": "D. B + popularity-residualized ALS",
+      "weights": {
+        "pop": 1.0,
+        "rating": 0,
+        "tfidf": 0.5,
+        "als_resid": 2.0
+      },
+      "val_ndcg@5": 0.048,
+      "test_ndcg@5": 0.0436,
+      "test_recall@5": 0.0568,
+      "catalog_coverage@5": 0.2385
+    },
+    {
+      "variant": "(reference) raw ALS only",
+      "weights": {
+        "als": 1.0
+      },
+      "val_ndcg@5": 0.0465,
+      "test_ndcg@5": 0.044,
+      "test_recall@5": 0.0578,
+      "catalog_coverage@5": 0.2534
+    }
+  ],
+  "corr(raw ALS, log popularity)": 0.213,
+  "corr(residual ALS, log popularity)": -0.0
+}
