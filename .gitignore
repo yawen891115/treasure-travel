@@ -1,0 +1,43 @@
+# secrets
+.env
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+# data and generated files (too big for Git, or not ours to publish)
+data/raw/*
+data/processed/*
+data/cache/*
+artifacts/*
+web_data/
+web/staticfiles/
+results/agent_runs_*.jsonl
+results/practice/
+survey/responses.csv
+survey/requests_from_survey.jsonl
+# keep the empty folders
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!artifacts/.gitkeep
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.pem
+
+# outputs of the practice run on sample survey rows
+survey/survey_summary.md
+
+# local research outputs and audit evidence
+audit/
+data/boston_prepared/
+*.sqlite3
+*.log
+mobile/node_modules/
+mobile/.expo/
+mobile/dist-ios/
+LIVE_UPGRADE_CHANGES.patch
+AUDIT_CHANGES.patch
