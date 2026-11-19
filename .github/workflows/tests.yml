@@ -1,0 +1,26 @@
+name: tests
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - run: pip install -r requirements.txt -r requirements-security-test.txt
+      - run: ruff check .
+      - name: Run the pipeline on fake data
+        run: |
+          python scripts/00_make_fake_data.py
+          python scripts/01_prepare_data.py --state FAKE
+          python scripts/02_rank_experiments.py
+          python scripts/04_make_test_requests.py --n 20
+          python scripts/05_eval_agent.py --fake-llm --n 5
+          python scripts/06_eval_offline.py --n 20
+      - run: pytest -q
+      - run: cd web && python manage.py test planner
