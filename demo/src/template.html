@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Treasure Travel: plan a walkable day in Boston</title>
+<meta name="description" content="Tell the planner what you like. It picks Boston stops, checks walking time, opening hours and budget, and draws your route.">
+<script>
+  // Set apiBase to your deployed agent URL, e.g. "https://treasure-travel-agent.<you>.workers.dev".
+  // Leave it empty to run the page with the rule-based planner only.
+  window.TT_CONFIG = { apiBase: "/*API_BASE*/" };
+</script>
+<style>/*LEAFLET_CSS*/</style>
+<style>/*FONTS_CSS*/</style>
+<style>/*APP_CSS*/</style>
+</head>
+<body>
+<a class="skip" href="#ask-input">Skip to the planner</a>
+<header class="topbar">
+  <a class="wordmark" href="#plan" aria-label="Treasure Travel, Boston">
+    <svg class="wordmark-mark" viewBox="0 0 28 28" aria-hidden="true"><path d="M3 21 C 9 21, 9 8, 15 8 S 21 15, 25 7" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/><circle cx="3.5" cy="21" r="2.6"/><circle cx="25" cy="7" r="2.6"/></svg>
+    <span>Treasure Travel</span><span class="wordmark-city">Boston</span>
+  </a>
+  <nav class="topnav" aria-label="Sections">
+    <a href="#plan">Plan a day</a>
+    <a href="#how">How it works</a>
+    <a href="https://github.com/yawen891115/treasure-travel">Code</a>
+  </nav>
+</header>
+
+<main id="plan" class="planner">
+  <section class="ask-area" aria-labelledby="title">
+    <h1 id="title">Plan a walkable day in Boston</h1>
+    <p class="lede">Say what you like. The planner picks Boston stops, checks walking time, opening hours and your budget, then draws the route.</p>
+    <form id="ask" class="ask" autocomplete="off">
+      <label for="ask-input" class="sr-only">What kind of day do you want?</label>
+      <textarea id="ask-input" rows="2" maxlength="600" placeholder="Two of us, history and good coffee, under $40, back by 4 pm"></textarea>
+      <div class="ask-row">
+        <p id="engine-note" class="engine-note"></p>
+        <button type="submit" id="ask-btn" class="btn-primary">Plan my day</button>
+      </div>
+    </form>
+    <div id="chips" class="chips" aria-label="Quick changes"></div>
+    <div id="convo" class="convo" aria-live="polite"></div>
+    <details class="limits" id="limits">
+      <summary>Time, budget and walking</summary>
+      <form id="limits-form" class="limits-grid">
+        <label>Start<input type="time" name="start" required></label>
+        <label>Finish<input type="time" name="end" required></label>
+        <label>People<input type="number" name="group" min="1" max="12" required></label>
+        <label>Budget for the group ($)<input type="number" name="budget" min="0" max="2000" required></label>
+        <label>Longest walk (min)<input type="number" name="maxWalk" min="3" max="60" required></label>
+        <label>Stops<input type="number" name="stops" min="1" max="6" required></label>
+        <label class="wide">Start point<select name="origin"></select></label>
+        <fieldset class="wide interests"><legend>Interests</legend><div id="interest-toggles"></div></fieldset>
+      </form>
+    </details>
+  </section>
+
+  <section class="map-area" aria-label="Map of your route">
+    <div id="map" role="region" aria-label="Map"></div>
+    <p id="map-fallback" class="map-fallback" hidden>The map could not load here. Your route is listed beside it.</p>
+  </section>
+
+  <section class="route-area" aria-labelledby="route-title">
+    <div class="route-head">
+      <h2 id="route-title">Your route</h2>
+      <span id="engine-badge" class="engine-badge"></span>
+    </div>
+    <dl id="totals" class="totals"></dl>
+    <ol id="trail" class="trail" aria-live="polite"></ol>
+    <ul id="checks" class="checks" aria-label="Plan checks"></ul>
+    <details id="trace" class="trace" hidden>
+      <summary id="trace-summary">How the agent built this plan</summary>
+      <ol id="trace-list"></ol>
+      <p id="trace-meta" class="trace-meta"></p>
+    </details>
+  </section>
+</main>
+
+<section id="how" class="how" aria-labelledby="how-title">
+  <div class="how-inner">
+    <h2 id="how-title">How the recommendations were built</h2>
+    <p class="how-lede">The planner above works from a short, hand-picked list of 38 places. The ranking model behind Treasure Travel was built and tested offline on public Google Maps reviews of Boston from the UCSD Google Local dataset: 2,210 places, 22,287 reviewers and 352,408 reviews.</p>
+    <ol class="pipeline">
+      <li><h3>Split by time</h3><p>Keep reviews inside the Boston city boundary. Each reviewer's older reviews train the model; their newest ones are held out for testing.</p></li>
+      <li><h3>Baseline signals</h3><p>Popularity, a smoothed rating, and TF-IDF similarity between a place's text and the places the reviewer liked before.</p></li>
+      <li><h3>Collaborative filtering</h3><p>Implicit-feedback ALS factors trained with PySpark on who reviewed what.</p></li>
+      <li><h3>Remove popularity</h3><p>For each reviewer, regress the ALS scores on log popularity and keep the residual, the taste popularity can't explain.</p></li>
+      <li><h3>Choose weights, test once</h3><p>Blend weights are chosen on a validation split. Test NDCG@5 is reported once, on held-out reviews.</p></li>
+    </ol>
+    <div class="charts">
+      <figure class="chart" id="chart-ndcg"></figure>
+      <figure class="chart" id="chart-coverage"></figure>
+    </div>
+    <details class="table-view">
+      <summary>Show these results as a table</summary>
+      <div id="results-table"></div>
+    </details>
+    <div class="facts">
+      <div class="fact"><p class="fact-label">Popularity correlation of ALS scores</p><p class="fact-value">0.21 <span aria-hidden="true">to</span><span class="sr-only">to</span> 0.00</p><p class="fact-note">After regressing popularity out, at about the same accuracy as raw ALS.</p></div>
+      <div class="fact"><p class="fact-label">Top-5 recommended places that were closed, too far or had unverified hours</p><p class="fact-value">34.9% <span aria-hidden="true">to</span><span class="sr-only">to</span> 0%</p><p class="fact-note">With constraint-aware re-ranking. NDCG@5 goes from 0.0436 to 0.0394.</p></div>
+      <div class="fact"><p class="fact-label">Generated trip requests with a violation, unknown hours or no feasible plan</p><p class="fact-value">93.5% <span aria-hidden="true">to</span><span class="sr-only">to</span> 6.0%</p><p class="fact-note">Naive top-N list versus the rule planner on 200 requests. The 6.0% are requests with no feasible plan.</p></div>
+    </div>
+    <p class="caveat">These are offline results on public reviews and generated requests, not real trips or real users. Code, data steps and limits are on <a href="https://github.com/yawen891115/treasure-travel">GitHub</a>.</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>Places are real Boston landmarks at approximate locations. Opening hours, visit lengths and prices are estimates written for this demo, so check before you go. Walking times are straight-line estimates unless the agent reports Google Maps times.</p>
+  <p>Map data &copy; OpenStreetMap contributors, tiles &copy; CARTO.</p>
+</footer>
+<div id="tooltip" class="tooltip" role="tooltip" hidden></div>
+<script>/*LEAFLET_JS*/</script>
+<script type="module">/*APP_JS*/</script>
+</body>
+</html>

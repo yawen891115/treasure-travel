@@ -1,0 +1,19 @@
+{
+  "name": "treasure-travel-demo",
+  "private": true,
+  "type": "module",
+  "description": "Boston trip-planning demo: static page plus a Claude tool-calling agent on Cloudflare Workers.",
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node --test test/*.test.mjs",
+    "agent:dev": "npx wrangler dev",
+    "agent:deploy": "npx wrangler deploy"
+  },
+  "devDependencies": {
+    "@fontsource/overpass": "^5.0.0",
+    "leaflet": "1.9.4"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

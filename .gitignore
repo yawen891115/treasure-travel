@@ -21,6 +21,7 @@ survey/requests_from_survey.jsonl
 # keep the empty folders
 !data/raw/.gitkeep
 !data/processed/.gitkeep
+!data/cache/.gitkeep
 !artifacts/.gitkeep
 # OS / editor
 .DS_Store

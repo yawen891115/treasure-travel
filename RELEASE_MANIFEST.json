@@ -1,5 +1,5 @@
 {
-  "file_count": 117,
+  "file_count": 131,
   "files": [
     {
       "path": ".dockerignore",
@@ -11,11 +11,11 @@
     },
     {
       "path": ".github/workflows/tests.yml",
-      "sha256": "f1d11c793ebc25055f8c8a42776ceb2322679ca1f54bbd4f287623909c4b48e1"
+      "sha256": "982402030c2ed3704aae2535cc819ad79b103943ba575e594d38b9f17c3d6989"
     },
     {
       "path": ".gitignore",
-      "sha256": "bcdd7544ec34b3907ae34124b5239a55247e09b0b2492f557cb306da8a8c4470"
+      "sha256": "f9f41baabc7b8f71d87e54ecaf38e8e1a33965652a1457ebaed45d10cf4bfc21"
     },
     {
       "path": "AUDIT_REPORT.md",
@@ -39,11 +39,11 @@
     },
     {
       "path": "NOTICE.md",
-      "sha256": "216a78bb5e1e6ea2b127480a07203bfc63ca34f382de3fac0aae92f716afbbc9"
+      "sha256": "baeff31a95a5e12d7e5e3f73c8282924efbb8e6bb195a0905f8bca85fe5f1413"
     },
     {
       "path": "README.md",
-      "sha256": "f64784e0d6cb80c674091fdd7317de086cc43994c61d17e873b2524c7cb29f16"
+      "sha256": "a54c1b8c9386a3c760a342ce3a667d343845deed0d4170e0ef1cef3de2fa7663"
     },
     {
       "path": "agent/__init__.py",
@@ -91,15 +91,71 @@
     },
     {
       "path": "demo/README.md",
-      "sha256": "8ed891af36c38d6e2f5fb4ed8d5ca6ecc94e07b2a55bae14f64336d20d0407fc"
+      "sha256": "2f6cea2826b43c5feabb3ecb94cbca2e34e95bb34f98ebf4328daf100cf1c5f6"
+    },
+    {
+      "path": "demo/agent/agent.js",
+      "sha256": "8ce7748ba32c1f536ea720b8f2be79d294f67b7c811a122d0ebd4065e7dce3eb"
+    },
+    {
+      "path": "demo/agent/anthropic.js",
+      "sha256": "66d80e9ed1ec06224dbdc768b5ae286345082a811dc7c37f01889e9f0a9df653"
+    },
+    {
+      "path": "demo/agent/index.js",
+      "sha256": "37c8b120afd199b2b47fb3a225e71f030d08ddb2fd6cff7ffa71b6ffe86e002f"
+    },
+    {
+      "path": "demo/agent/maps.js",
+      "sha256": "fdb46d6113d3052e7539ec7311107920175f607f87d337f9b60c1efca25ee28d"
+    },
+    {
+      "path": "demo/build.mjs",
+      "sha256": "04b006a585d9479f246a16d555d7f8156327174266c50ebcd360f9e71078da50"
     },
     {
       "path": "demo/index.html",
-      "sha256": "9183a88dd6480f97ed48cc437d42716b43ffcad3bd937783de0eccba450bc0db"
+      "sha256": "2f54bc007b87bd916b51edea35cac47ee769ce1ea25e13694a68658789f0393e"
     },
     {
-      "path": "demo/test.cjs",
-      "sha256": "3429ddf13d80e4e36961696138c0d6bf59bb0ee73b8d03c63160c7af5fef9b14"
+      "path": "demo/package-lock.json",
+      "sha256": "1bfd25393a577ed54d45543a3e048a2c6b10c77d394fcef7b777ab920e84e612"
+    },
+    {
+      "path": "demo/package.json",
+      "sha256": "bfa74b4c2c17464d75740cf59a6e4d531bd75d11a37bfb6457ede3de0ef81916"
+    },
+    {
+      "path": "demo/src/app.js",
+      "sha256": "9622f205691408372f15fbcd51842f8052159e9ec26fdcdfad247932cf68d4ec"
+    },
+    {
+      "path": "demo/src/charts.js",
+      "sha256": "b6aa2536777f13bbab430c1f4307eb5439139d1e2ec65ad7b31eaa5e4c45b3a8"
+    },
+    {
+      "path": "demo/src/core.js",
+      "sha256": "ee7afe5b2b428f44caa2d47744eab2fbee6106e1c7d5a195350cbd0406fa59b4"
+    },
+    {
+      "path": "demo/src/styles.css",
+      "sha256": "dc49b43cbaddbc4b567539cc0517d9360e2d43ecc4cb03edc37d44b067805bae"
+    },
+    {
+      "path": "demo/src/template.html",
+      "sha256": "c662a247ea07d4ba4f4a7271b35988c10b966a92d0832793af24fa35bfc75ef2"
+    },
+    {
+      "path": "demo/test/agent.test.mjs",
+      "sha256": "880e38551199aafb565dd612d91829a493dd79b162cfde382355c681661f5bbb"
+    },
+    {
+      "path": "demo/test/core.test.mjs",
+      "sha256": "1fb75c3adf06a276ac16955cb2caa6f68f835a75f82d7b1d1d00b13ee6516420"
+    },
+    {
+      "path": "demo/wrangler.toml",
+      "sha256": "ef95cddf6f8018508d52b84a25d81723c58da71588ba1f57c1a4bfe626be3ecd"
     },
     {
       "path": "docker-compose.https.yml",
@@ -119,7 +175,7 @@
     },
     {
       "path": "mobile/App.tsx",
-      "sha256": "56c1fd5e171de29d229db0399b4042c58fb75baf16e473fdbd1ef25f2d1bb654"
+      "sha256": "a1a62e414c343a3674913d8e61a93cc1481828f84c564a74625cc3d32c03e59a"
     },
     {
       "path": "mobile/LICENSE",
@@ -171,11 +227,11 @@
     },
     {
       "path": "mobile/package-lock.json",
-      "sha256": "42005261372a9d02435c899a56fa8cb5e132bba2824ef0480a6e79382a685b5c"
+      "sha256": "2dcbe695294301138f0685a16da789a2dd2ec5fdb381d59492c2c17d0e5b33ae"
     },
     {
       "path": "mobile/package.json",
-      "sha256": "ec6fe559b0bb57d0dd6eada29a50e400a96f6b960721bfc32261457300767883"
+      "sha256": "69148003c155d228d7629549ecb7e0758a0a197eec083c36d7f39d34c323fcbb"
     },
     {
       "path": "mobile/src/api.ts",
@@ -271,7 +327,7 @@
     },
     {
       "path": "scripts/smoke_http.py",
-      "sha256": "3a9d4f02e6f4b0bf1b64aa07a5aef1f8a2e7e93f6ad35b6cbd0961d295f0ce84"
+      "sha256": "cd69ff977a0b84bffcf3dba0dd01b32dd03248b218af0a63b33446bc24fcaecf"
     },
     {
       "path": "scripts/survey_to_requests.py",

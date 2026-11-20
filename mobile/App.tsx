@@ -22,6 +22,23 @@ export default function App() {
     return <Pressable accessibilityRole="button" disabled={busy||disabled} onPress={onPress} style={[s.button,(busy||disabled)&&s.disabled]}><Text style={s.buttonText}>{label}</Text></Pressable>;
   }
   const connect=()=>act(async()=>{ if(!BASE) throw new Error('This build has no server configured.'); api.current=new TravelAPI(BASE,fetch,__DEV__); const state=await api.current.session(); setSigned(state.authenticated);setPaidAccess(state.paid_access);setReady(true); });
+  function confirmReset() {
+    const title = 'Start again?';
+    const detail = 'This clears the current planning session, not server logs.';
+    const reset = () => act(async () => {
+      await api.current!.reset();
+      setPlan(null);
+      setMessage('');
+      const state = await api.current!.session();
+      setSigned(state.authenticated);
+      setPaidAccess(state.paid_access);
+    });
+    if (Platform.OS === 'web') {
+      if (globalThis.confirm(`${title}\n\n${detail}`)) void reset();
+      return;
+    }
+    Alert.alert(title, detail, [{ text: 'Cancel', style: 'cancel' }, { text: 'Start again', onPress: reset }]);
+  }
   return <SafeAreaView style={s.safe}><StatusBar style="dark"/><KeyboardAvoidingView style={s.fill} behavior={Platform.OS==='ios'?'padding':undefined}><ScrollView contentContainerStyle={s.content} keyboardShouldPersistTaps="handled">
     <Text style={s.eyebrow}>BOSTON · YOUR DAY, WELL PLANNED</Text><Text style={s.title}>Treasure Travel</Text><Text style={s.subtitle}>A little curiosity. A better day out.</Text>
     <View style={s.notice}><Text>Development preview. Live availability is not guaranteed. Costs are estimates; confirm important details with each venue.</Text></View>
@@ -33,7 +50,7 @@ export default function App() {
       {!signed && <View style={s.card}><Text style={s.heading}>Preview access</Text><Text style={s.body}>Staff sign-in is required for the paid live-data preview. Public account registration is not available yet.</Text><TextInput accessibilityLabel="Username" placeholder="Username" value={username} onChangeText={setUsername} autoCapitalize="none" autoComplete="username" style={s.input}/><TextInput accessibilityLabel="Password" placeholder="Password" value={password} onChangeText={setPassword} secureTextEntry autoCapitalize="none" autoComplete="current-password" style={s.input}/><Button label="Sign in" onPress={()=>act(async()=>{const secret=password;setPassword('');const state=await api.current!.login(username,secret);setSigned(state.authenticated);setPaidAccess(state.paid_access);})}/></View>}
       <View style={s.card}><Text style={s.heading}>Where shall we go?</Text><Text style={s.body}>Include a date (YYYY-MM-DD), starting place, time, budget and interests. Live plans must be within the supported upcoming-date window.</Text><TextInput accessibilityLabel="Trip request" multiline maxLength={8000} placeholder="Tomorrow, coffee and art near Boston Common…" value={message} onChangeText={setMessage} editable={!busy} style={[s.input,s.composer]}/><Button label={busy?'Working…':'Plan my day'} disabled={!message.trim()} onPress={()=>act(async()=>{setPlan(await api.current!.chat(message));setMessage('');})}/></View>
       {plan && <View style={s.card}><Text style={s.heading}>Your itinerary</Text><Text style={s.body}>{plan.reply}</Text><Text style={s.body}>{plan.data_source?.maps_mode==='google'?'Google Maps • configured live checks (not a guarantee for every stop)':'Historical data • offline estimates'}</Text><Text style={s.body}>{plan.data_source?.cost_basis}; {plan.data_source?.travel_basis}</Text>{plan.data_source?.maps_mode==='google' && <Text style={s.warning}>Live turns are not saved. Include the full date, start, budget and preferences each time.</Text>}{plan.warnings.map((w,i)=><Text key={i} style={s.warning}>{w}</Text>)}{plan.stops.map((stop,i)=><View key={`${stop.place_id}-${i}`} style={s.stop}><Text style={s.eyebrow}>{stop.arrive} — {stop.leave}</Text><Text style={s.stopTitle}>{i+1}. {stop.name}</Text>{typeof stop.est_cost==='number' && <Text>Estimated cost: ${stop.est_cost.toFixed(2)}</Text>}</View>)}<Button label="Share itinerary" onPress={()=>act(async()=>{await Share.share({message:`Treasure Travel — estimated itinerary\n${plan.stops.map(x=>`${x.arrive}–${x.leave} ${x.name}`).join('\n')}\n${plan.warnings.join('\n')}\n${plan.data_source?.maps_mode==='google'?'Google Maps · https://maps.google.com':'Offline historical data'}\nCosts are estimates.\nConfirm venue details before travel.`});})}/></View>}
-      <Button label="Start a new conversation" onPress={()=>Alert.alert('Start again?','This clears the current planning session, not server logs.',[{text:'Cancel',style:'cancel'},{text:'Start again',onPress:()=>act(async()=>{await api.current!.reset();setPlan(null);setMessage('');const state=await api.current!.session();setSigned(state.authenticated);setPaidAccess(state.paid_access);})}])}/>
+      <Button label="Start a new conversation" onPress={confirmReset}/>
       {signed&&<Button label="Sign out" onPress={()=>act(async()=>{await api.current!.logout();setSigned(false);setReady(false);setPlan(null);setUsername('');setPassword('');})}/>}
     </>}
     {!!error&&<Text accessibilityRole="alert" style={s.warning}>{error}</Text>}

@@ -24,3 +24,16 @@ jobs:
           python scripts/06_eval_offline.py --n 20
       - run: pytest -q
       - run: cd web && python manage.py test planner
+  demo-tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: demo
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm ci
+      - run: npm test
+      - run: npm run build

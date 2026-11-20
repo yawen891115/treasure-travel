@@ -11,6 +11,8 @@ from pathlib import Path
 import requests
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from src import config  # noqa: E402
 
 
 def main():
@@ -57,9 +59,10 @@ def main():
             else:
                 raise RuntimeError("server failed to start")
             headers = {"X-CSRFToken": session.cookies.get("csrftoken"), "Referer": url + "/"}
+            origin = "41.83, -71.41" if config.dataset_state() == "FAKE" else "42.3601, -71.0589"
             prompt = (
                 "Saturday 10:00-18:00, 2 people, budget $100, walk, max 20 minutes, "
-                "origin (42.3601, -71.0589), interests: art and coffee"
+                f"origin ({origin}), interests: art and coffee"
             )
             chat = session.post(url + "/api/chat", json={"message": prompt}, headers=headers)
             assert home.status_code == chat.status_code == 200
